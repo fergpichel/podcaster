@@ -1,0 +1,7 @@
+#FOLDERS
+/node_modules/
+/public/dist/
+
+#LOGS
+yarn-debug.log*
+yarn-error.log*
