@@ -1,3 +1,12 @@
-h1 {
-    color: blue;
-}
+@import 'settings/colors.css';
+@import 'settings/sizes.css';
+
+@import 'generic/reset.css';
+
+@import 'elements/page.css';
+
+@import 'objects/layout.css';
+
+@import 'components/nav.css';
+@import 'components/podcast-list.css';
+@import 'components/podcast.css';

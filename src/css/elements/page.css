@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+main {
+    height: calc(100vh - var(--size-menu-height));
+    margin-top: var(--size-menu-height);
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+}

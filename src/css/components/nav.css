@@ -1,0 +1,25 @@
+.menu {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 4px 1px var(--color-shadow);
+    display: flex;
+    list-style-type: none;
+    padding: 0 16px;
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
+}
+
+.nav-item {
+    cursor: pointer;
+    font-size: 16px;
+    list-style-type: none;
+    min-width: 70px;
+    padding: 18px;
+    text-align: center;
+    transition: color .1s linear;
+    text-decoration: none;
+}
+
+.nav-item:hover a{
+    color: var(--color-bg);
+}
