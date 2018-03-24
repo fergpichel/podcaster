@@ -3,7 +3,6 @@ import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import PodcastListView from './PodcastListView';
 import PodcastDetailView from './PodcastDetailView';
-import EpisodeDetail from './PodcastListView';
 
 class Main extends React.Component {
    render() {
@@ -12,7 +11,7 @@ class Main extends React.Component {
           <Switch>
             <Route exact path='/' component={PodcastListView}/>
             <Route path='/podcast/:podcastId' component={PodcastDetailView}/>
-            <Route path='/podcast/:podcastId/episode/:episodeId' component={EpisodeDetail}/>
+            <Route path='/podcast/:podcastId/episode/:episodeId' component={PodcastDetailView}/>
           </Switch>
         </main>
       );

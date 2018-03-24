@@ -25,17 +25,31 @@
 
 .podcast-widget__image {
   background-color: var(--color-shadow10);
-  border-radius: 5px;
   height: 175px;
   margin: 0 auto 16px;
-  padding: 0;
   width: 175px;
+}
+
+.podcast-widget__image img {  
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
 }
 
 .podcast-widget__title {
   font-size: 16px;
   line-height: 20px;
   font-weight: 700;
+}
+
+a .podcast-widget__title,
+a .podcast-widget__author {
+  color: var(--color-bg);
+}
+
+a .podcast-widget__title:hover,
+a .podcast-widget__author:hover {
+  color: var(--color-link);
 }
 
 .podcast-widget__subtitle {
@@ -45,6 +59,6 @@
 
 .podcast-widget__author {
   font-style: italic;
-  font-weight: light;
+  font-weight: 300;
   margin-bottom: 16px;
 }

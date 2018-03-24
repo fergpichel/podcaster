@@ -14,12 +14,17 @@ class PodcastListView extends React.Component {
 
   componentDidMount() {
     axios.get(`${ItunesAPI.url}`)
+      .then(response => {
+        console.log(`${response.status}:${response.statusText}`);
+        return response;
+      })
       .then(results => {
         return results.data.feed.entry;
       })
       .then(podcasts => {
         this.setState({podcasts: podcasts});
-      });
+      })
+      .catch(e => console.log(e));
   }
 
   render() {

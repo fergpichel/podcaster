@@ -9,7 +9,7 @@ class Episode extends React.Component {
   render() {
     return (
       <li className="episode">
-          <Link to={`/podcast/${this.props.id}`} className="episode__title">
+          <Link to={`/podcast/${this.props.podcastId}/episode/${this.props.id}`} className="episode__title">
             <span>{this.props.title}</span>
           </Link>
           <span className="episode__date">{this.props.date}</span>

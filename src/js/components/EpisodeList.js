@@ -6,6 +6,7 @@ class EpisodeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      podcastId: props.podcastId,
       episodes: props.episodes,
       count: props.count
     }
@@ -26,6 +27,7 @@ class EpisodeList extends React.Component {
           {this.state.episodes.map((episode) => (
               <Episode key={episode.guid} 
                 id={episode.guid} 
+                podcastId={this.state.podcastId}
                 title={episode.title} 
                 date={episode.pubDate}
                 duration={episode.enclosure.duration}
