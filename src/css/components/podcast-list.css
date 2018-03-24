@@ -2,10 +2,38 @@
     display: grid;
     grid-column-gap: 64px;
     grid-template-columns: repeat(auto-fit,var(--size-column));
-    height: 100%;
+    height: auto;
     justify-content: center;
     margin: 0 auto 32px;
-    max-width: 1200px;
-    padding: 128px 32px;
+    max-width: var(--size-main-area);
+    padding: 128px 0;
     width: 100%;
+}
+
+.search-bar {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    max-width: 75%;
+    padding: 0 16;
+}
+
+.search-bar span {
+    background: var(--color-link);
+    border-radius: 4px;
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px;
+    text-align: center;
+}
+
+.search-bar__input {
+    border-radius: 4px;
+    font-size: 16px;
+    height: 32px;
+    margin: 16px 8px;
+    padding: 16px;
+    min-width: 350px;;
 }

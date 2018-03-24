@@ -63,9 +63,9 @@
     animation: shrink 3s ease infinite;
     background-color:var(--color-link);
     height: 8.5px;
-    left: 4.4px;
+    left: 4.6px;
     position: absolute;
-    top: 4.4px;
+    top: 4.6px;
     width: 8.5px;
 }
 

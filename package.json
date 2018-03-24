@@ -29,7 +29,7 @@
   },
   "scripts": {
     "watch": "webpack-dev-server --hot --watch --inline",
-    "build": "webpack -p"
+    "build": "NODE_ENV=production webpack -p"
   },
   "dependencies": {
     "axios": "^0.18.0",

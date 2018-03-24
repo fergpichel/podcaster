@@ -70,3 +70,7 @@ a .podcast-widget__author:hover {
   margin-top: 16px;
   width: 100%;
 }
+
+.podcast-widget__content p {
+  margin-bottom: 8px;
+}
