@@ -9,6 +9,7 @@
 @import 'objects/layout.css';
 
 @import 'components/episode-list.css';
+@import 'components/episode-player.css';
 @import 'components/episode.css';
 @import 'components/nav.css';
 @import 'components/podcast-widget.css';

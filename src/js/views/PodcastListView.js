@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Podcast from './podcast';
+import Podcast from '../components/podcast';
 import ItunesAPI from '../api'
 import Utils from '../utils'
 

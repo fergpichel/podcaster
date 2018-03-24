@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import Episode from './Episode';
+import moment from 'moment';
 
 class EpisodeList extends React.Component {
   constructor(props) {
@@ -10,6 +12,18 @@ class EpisodeList extends React.Component {
       episodes: props.episodes,
       count: props.count
     }
+  }
+
+  pad(num) {
+      return ("0" + num).slice(-2);
+  }
+
+  hhmmss(secs) {
+    var minutes = Math.floor(secs / 60);
+    secs = secs%60;
+    var hours = Math.floor(minutes/60)
+    minutes = minutes%60;
+    return `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(secs)}`;
   }
 
   render() {
@@ -24,13 +38,13 @@ class EpisodeList extends React.Component {
             <span className="episode__date">Date</span>
             <span className="episode__duration">Duration</span>
           </header>
-          {this.state.episodes.map((episode) => (
+          {this.state.episodes.map((episode, index) => (
               <Episode key={episode.guid} 
-                id={episode.guid} 
+                id={index} 
                 podcastId={this.state.podcastId}
                 title={episode.title} 
-                date={episode.pubDate}
-                duration={episode.enclosure.duration}
+                date={moment(episode.pubDate).format('D/M/YYYY')}
+                duration={this.hhmmss(episode.enclosure.duration)}
                 src={episode.enclosure.link} />
           ))}
       </section>

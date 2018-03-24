@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import EpisodeList from './EpisodeList';
-import Episode from './Episode';
-import PodcastWidget from './PodcastWidget';
+import PodcastWidget from '../components/PodcastWidget';
+import EpisodePlayer from '../components/EpisodePlayer';
 import ItunesAPI from '../api';
 import Utils from '../utils';
 
@@ -13,10 +12,9 @@ class PodcastDetailView extends React.Component {
     super();
     this.props = props;
     this.podcastId = null;
-    this.trackCount = null;
     this.state = {
-      episodes: [],
-      currentEpisodeId: this.props.match.params.episodeId,
+      episode: [],
+      currentEpisodeId: null
     };
   }
 
@@ -29,7 +27,6 @@ class PodcastDetailView extends React.Component {
       })
       .then(results => {
         this.podcastId = results.data.results[0].collectionId;
-        this.trackCount = results.data.results[0].trackCount;
         let url = ItunesAPI.getEpisodesUrl(results.data.results[0].feedUrl, results.data.results[0].trackCount);
         axios.get(url)
           .then(response => {
@@ -39,19 +36,20 @@ class PodcastDetailView extends React.Component {
           .then(episodes => {
             this.setState({
               id: this.podcastId,
+              currentEpisodeId: this.props.match.params.episodeId,
               title : episodes.data.feed.title,
               author : episodes.data.feed.author,
-              description : episodes.data.feed.description,
               image : episodes.data.feed.image,
-              count: this.trackCount,
-              episodes: episodes.data.items
+              description : episodes.data.feed.description,
+              episode: episodes.data.items[this.props.match.params.episodeId],
+              src: episodes.data.items[this.props.match.params.episodeId].enclosure.link
             });
           })
       })
       .catch(e => console.log(e));
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(props) {
     Utils.hideSpinner();
   }
 
@@ -65,7 +63,13 @@ class PodcastDetailView extends React.Component {
             author={this.state.author}
             description={this.state.description} 
           />
-          <EpisodeList key={`${this.state.id}list`} podcastId={this.state.id} episodes={this.state.episodes} count={this.state.count} />
+          <section className="layout-podcast-detail__content">
+            <EpisodePlayer key={this.state.currentEpisodeId} 
+              id={this.state.currentEpisodeId} 
+              data={this.state.episode}
+              src={this.state.src}
+            />
+          </section>          
         </article>
     );
   }

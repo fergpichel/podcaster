@@ -21,7 +21,7 @@ class PodcastWidget extends React.Component {
         </Link>
           <section className="podcast-widget__section">
             <h2 className="podcast-widget__subtitle">Description:</h2>
-            <p>{this.props.description}</p>
+            <p className="podcast-widget__content" dangerouslySetInnerHTML={{__html: this.props.description}}></p>
           </section>
       </aside>
     );

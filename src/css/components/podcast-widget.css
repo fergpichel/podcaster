@@ -62,3 +62,11 @@ a .podcast-widget__author:hover {
   font-weight: 300;
   margin-bottom: 16px;
 }
+
+.podcast-widget__content {
+  font-size: 14px;
+  font-style: italic;
+  line-height: 20px;
+  margin-top: 16px;
+  width: 100%;
+}
