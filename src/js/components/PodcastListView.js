@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
 import Podcast from './podcast';
 import ItunesAPI from '../api'
+import Utils from '../utils'
 
 class PodcastListView extends React.Component {
   constructor() {
@@ -25,6 +27,10 @@ class PodcastListView extends React.Component {
         this.setState({podcasts: podcasts});
       })
       .catch(e => console.log(e));
+  }
+
+  componentWillUpdate() {
+    Utils.hideSpinner();
   }
 
   render() {

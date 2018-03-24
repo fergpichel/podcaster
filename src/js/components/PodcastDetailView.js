@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+
 import EpisodeList from './EpisodeList';
 import Episode from './Episode';
 import PodcastWidget from './PodcastWidget';
 import ItunesAPI from '../api';
+import Utils from '../utils';
 
 class PodcastDetailView extends React.Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class PodcastDetailView extends React.Component {
   }
 
   componentDidMount() {
-    $('.spinner').addClass('spinner__on');
+    Utils.showSpinner();
     axios.get(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
       .then(response => {
         console.log(`${response.status}:${response.statusText}`);
@@ -50,7 +52,7 @@ class PodcastDetailView extends React.Component {
   }
 
   componentWillUpdate() {
-    $('.spinner').removeClass('spinner__on')
+    Utils.hideSpinner();
   }
 
   render() {
