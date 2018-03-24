@@ -1,0 +1,14 @@
+.episode-list {
+  align-items: flex-start;
+  box-shadow: 0 2px 4px 1px var(--color-shadow);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  justify-content: flex-start;
+  padding: 16px;
+  width: 100%;
+}
+
+.episode-list .episode:nth-child(even){
+  background: var(--color-shadow10);
+}

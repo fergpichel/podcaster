@@ -4,5 +4,6 @@
     --color-link: #529efb;
     --color-shadow: #cdcdcd;
     --color-shadow50: rgba(141, 141, 141, 0.3);
+    --color-shadow10: rgba(141, 141, 141, 0.1);
     --color-white: #FFF;
   }

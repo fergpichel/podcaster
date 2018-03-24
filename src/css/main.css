@@ -5,8 +5,12 @@
 
 @import 'elements/page.css';
 
+@import 'objects/layout-podcast-detail.css';
 @import 'objects/layout.css';
 
+@import 'components/episode-list.css';
+@import 'components/episode.css';
 @import 'components/nav.css';
+@import 'components/podcast-widget.css';
 @import 'components/podcast-list.css';
 @import 'components/podcast.css';

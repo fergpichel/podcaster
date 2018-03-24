@@ -1,0 +1,32 @@
+.episode {
+  border-bottom: 1px solid var(--color-shadow50);
+  color: var(--color-bg);
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  height: auto;
+  padding: 8px 0;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.episode * {
+  overflow: hidden;
+  padding: 2px 8px 2px;
+  text-overflow: ellipsis;
+}
+
+.episode__title {
+  flex-grow: 1;
+}
+
+.episode__date {
+  flex-basis: 120px;
+  flex-shrink: 0;
+}
+
+.episode__duration {
+  flex-basis: 60px;
+  flex-shrink: 0;
+  text-align: center;  
+}

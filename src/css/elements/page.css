@@ -7,6 +7,7 @@ body {
 
 a {
     color: var(--color-link);
+    display: inline-block;
     text-decoration: none;
 }
 

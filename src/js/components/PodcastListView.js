@@ -4,7 +4,7 @@ import axios from 'axios';
 import Podcast from './podcast';
 import ItunesAPI from '../api'
 
-class PodcastList extends React.Component {
+class PodcastListView extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,9 +27,10 @@ class PodcastList extends React.Component {
         <section className="podcast-list">
             {this.state.podcasts.map((podcast) => (
                 <Podcast key={ItunesAPI.getAttr(podcast, 'id')} 
+                        id={ItunesAPI.getAttr(podcast, 'id')} 
                         artist={ItunesAPI.getAttr(podcast, 'artist')} 
                         name={ItunesAPI.getAttr(podcast, 'name')} 
-                        image={ItunesAPI.getAttr(podcast, 'image')}
+                        image={ItunesAPI.getAttr(podcast, 'image')} 
                 />
             ))}
         </section>
@@ -37,4 +38,4 @@ class PodcastList extends React.Component {
   }
 }
 
-export default PodcastList;
+export default PodcastListView;
