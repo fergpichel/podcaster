@@ -19,6 +19,7 @@ class PodcastDetailView extends React.Component {
   }
 
   componentDidMount() {
+    $('.spinner').addClass('spinner__on');
     axios.get(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
       .then(response => {
         console.log(`${response.status}:${response.statusText}`);
@@ -46,6 +47,10 @@ class PodcastDetailView extends React.Component {
           })
       })
       .catch(e => console.log(e));
+  }
+
+  componentWillUpdate() {
+    $('.spinner').removeClass('spinner__on')
   }
 
   render() {

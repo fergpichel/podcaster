@@ -10,6 +10,7 @@ class Header extends React.Component {
                     <li className="nav-item"><NavLink to='/'>Podcaster</NavLink></li>
                 </ul>
             </nav>
+            <span className="spinner spinner__on"></span>
         </header>
       );
    }
