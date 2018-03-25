@@ -68,6 +68,8 @@ a .podcast-widget__author:hover {
   font-style: italic;
   line-height: 20px;
   margin-top: 16px;
+  overflow: hidden;
+  text-overflow: hidden;
   width: 100%;
 }
 
