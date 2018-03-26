@@ -30,7 +30,7 @@ const CSSLoader = {
     use: {
       loader: 'babel-loader',
       options: {
-        presets: ['env', 'react'],
+        presets: ['env', 'stage-2', 'react'],
         plugins: [["babel-plugin-syntax-jsx"]]
       }
     }

@@ -11,15 +11,40 @@ class PodcastDetailView extends React.Component {
   constructor(props) {
     super();
     this.props = props;
-    this.podcastId = null;
+    this.podcastId = this.props.match.params.podcastId;
     this.trackCount = null;
     this.state = {
+      id: null,
+      title : null,
+      author : null,
+      description : null,
+      image : null,
+      count: null,
       episodes: [],
-      currentEpisodeId: this.props.match.params.episodeId,
+      lastModified: null
     };
   }
 
+  saveOnDisk(item) {
+    let storedData = JSON.parse(localStorage.getItem('episodes'));
+    storedData = storedData || {};
+    storedData[this.podcastId] = item;
+    localStorage.setItem('episodes', JSON.stringify(storedData));
+  }
+
+  readFromDisk() {
+    const cachedData = JSON.parse(localStorage.getItem('episodes'));
+    const currentPodcast = cachedData ? cachedData[this.props.match.params.podcastId] : null;
+    return currentPodcast && Utils.isUpdated(currentPodcast.lastModified, 1) ? currentPodcast : null;
+  }
+
   componentDidMount() {
+    let storedPodcast = this.readFromDisk();
+    if (storedPodcast) {
+      this.setState(storedPodcast);
+      console.log("Already on disk");
+      return;
+    }
     Utils.showSpinner();
     axios.get(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
       .then(response => {
@@ -36,15 +61,18 @@ class PodcastDetailView extends React.Component {
             return response;
           })
           .then(episodes => {
-            this.setState({
+            let podcast = {
               id: this.podcastId,
               title : episodes.data.feed.title,
               author : episodes.data.feed.author,
               description : episodes.data.feed.description,
               image : episodes.data.feed.image,
               count: this.trackCount,
-              episodes: episodes.data.items
-            });
+              episodes: episodes.data.items,
+              lastModified: Utils.newDate()
+            }
+            this.setState(podcast);
+            this.saveOnDisk(podcast);
           })
       })
       .catch(e => console.log(e));

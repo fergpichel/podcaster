@@ -1,15 +1,17 @@
 .layout-podcast-detail {
   align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 0 auto;
   max-width: var(--size-main-area);
-  padding: 32px;
+  padding: 32px 0;
   width: 100%;
 }
 
 .layout-podcast-detail__content {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
 }

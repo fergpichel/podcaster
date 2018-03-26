@@ -11,42 +11,43 @@ class PodcastDetailView extends React.Component {
   constructor(props) {
     super();
     this.props = props;
-    this.podcastId = null;
+    this.podcastId = this.props.match.params.podcastId;
+    this.episodeId = this.props.match.params.episodeId;
     this.state = {
+      id: null,
+      title : null,
+      author : null,
+      description : null,
+      image : null,
+      count: null,
+      episodes: [],
       episode: [],
-      currentEpisodeId: null
+      src: null,
+      lastModified: null
     };
   }
 
+
+  readFromDisk() {
+    const cachedData = JSON.parse(localStorage.getItem('episodes'));
+    const currentPodcast = cachedData ? cachedData[this.props.match.params.podcastId] : null;
+    return currentPodcast && Utils.isUpdated(currentPodcast.lastModified, 1) ? currentPodcast : null;
+  }
+
   componentDidMount() {
-    Utils.showSpinner();
-    axios.get(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
-      .then(response => {
-        console.log(`${response.status}:${response.statusText}`);
-        return response;
-      })
-      .then(results => {
-        this.podcastId = results.data.results[0].collectionId;
-        let url = ItunesAPI.getEpisodesUrl(results.data.results[0].feedUrl, results.data.results[0].trackCount);
-        axios.get(url)
-          .then(response => {
-            console.log(`${response.status}:${response.statusText}`);
-            return response;
-          })
-          .then(episodes => {
-            this.setState({
-              id: this.podcastId,
-              currentEpisodeId: this.props.match.params.episodeId,
-              title : episodes.data.feed.title,
-              author : episodes.data.feed.author,
-              image : episodes.data.feed.image,
-              description : episodes.data.feed.description,
-              episode: episodes.data.items[this.props.match.params.episodeId],
-              src: episodes.data.items[this.props.match.params.episodeId].enclosure.link
-            });
-          })
-      })
-      .catch(e => console.log(e));
+    const storedPodcast = this.readFromDisk();
+    if (storedPodcast) {
+      const episode = storedPodcast.episodes[this.props.match.params.episodeId];
+      this.setState(
+        {...storedPodcast,
+          episode: {...episode,
+            id: this.episodeId 
+          },
+          src: episode.enclosure.link
+        }
+      );
+      console.log("Already on disk");
+    }
   }
 
   componentWillUpdate(props) {
@@ -65,7 +66,7 @@ class PodcastDetailView extends React.Component {
           />
           <section className="layout-podcast-detail__content">
             <EpisodePlayer key={this.state.currentEpisodeId} 
-              id={this.state.currentEpisodeId} 
+              id={this.state.episode.id} 
               data={this.state.episode}
               src={this.state.src}
             />

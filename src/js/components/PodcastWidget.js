@@ -19,7 +19,7 @@ class PodcastWidget extends React.Component {
             <h1 className="podcast-widget__title">{this.props.title}</h1>
             <p className="podcast-widget__author">{`by ${this.props.author}`}</p>
         </Link>
-          <section className="podcast-widget__section">
+          <section className="podcast-widget__section podcast-widget__description">
             <h2 className="podcast-widget__subtitle">Description:</h2>
             <p className="podcast-widget__content" dangerouslySetInnerHTML={{__html: this.props.description}}></p>
           </section>

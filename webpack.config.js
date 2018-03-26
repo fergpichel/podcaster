@@ -17,8 +17,6 @@ var config = {
   },
   devtool: isProdEnvironment() ? false : 'source-map',
   devServer: {
-    hot: true,
-    inline: true, // autorefresh
     port: 8080, // development port server
   },
   module: {

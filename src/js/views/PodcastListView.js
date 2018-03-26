@@ -5,6 +5,7 @@ import axios from 'axios';
 import Podcast from '../components/podcast';
 import ItunesAPI from '../api'
 import Utils from '../utils'
+import { list } from 'postcss';
 
 class PodcastListView extends React.Component {
   constructor() {
@@ -27,7 +28,27 @@ class PodcastListView extends React.Component {
     this.setState({podcasts: updatedList});      
   }
 
+  storeOnDisk(podcasts) {
+    localStorage.setItem('podcasts-lastModified',  JSON.stringify(Utils.newDate()));
+    localStorage.setItem('podcasts',  JSON.stringify(podcasts));
+    localStorage.setItem('episodes', null);
+  }
+
+  readFromDisk() {
+    const podcastsFullList = JSON.parse(localStorage.getItem('podcasts'));
+    const listLastModified = JSON.parse(localStorage.getItem('podcasts-lastModified'));
+    console.log(listLastModified);
+    return podcastsFullList && Utils.isUpdated(listLastModified, 1) ? podcastsFullList : null;
+  }
+
   componentDidMount() {
+    const storedPodcasts = this.readFromDisk();
+    if (storedPodcasts) {
+      this.initialList = storedPodcasts;
+      this.setState({podcasts: storedPodcasts});
+      console.log("Already on disk");
+      return;
+    }
     axios.get(`${ItunesAPI.url}`)
       .then(response => {
         console.log(`${response.status}:${response.statusText}`);
@@ -39,6 +60,7 @@ class PodcastListView extends React.Component {
       .then(podcasts => {
         this.initialList = podcasts;
         this.setState({podcasts: podcasts});
+        this.storeOnDisk(podcasts);
       })
       .catch(e => console.log(e));
   }

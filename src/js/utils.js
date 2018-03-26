@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const Utils = {
   showSpinner: () => {
     $('.spinner').addClass('spinner__on')
@@ -40,6 +42,15 @@ const Utils = {
       });
       return this.getMimeType(filteredTypes[0]);
     }
+  },
+  isUpdated(lastModified, days){
+    const cachedDataDate = lastModified;
+    const lastDate = moment(cachedDataDate);
+    const elapsedDays = moment().diff(lastModified, 'days');
+    return elapsedDays < days;
+  },
+  newDate() {
+    return moment(new Date());
   }
 }
  

@@ -34,6 +34,14 @@ The files will be generated on `public/dist/` folder
 yarn build
 ```
 
+Serve build folder
+
+This will serve `public/dist/` folder on `http://localhost:8081` 
+
+```
+yarn serve
+```
+
 ## Built With
 
 * [React](https://reactjs.org/) - The web framework used
