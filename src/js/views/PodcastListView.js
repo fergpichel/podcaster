@@ -20,10 +20,13 @@ class PodcastListView extends React.Component {
   filterList(event) {
     var updatedList = this.initialList;
     updatedList = updatedList.filter(function(podcast){
-      return (ItunesAPI.getAttr(podcast, 'name').toString().toLowerCase().search(
-        event.target.value.toString().toLowerCase()) && 
-        ItunesAPI.getAttr(podcast, 'artist').toString().toLowerCase().search(
-          event.target.value.toString().toLowerCase())) !== -1;
+      const isName = ItunesAPI.getAttr(podcast, 'name').toString().toLowerCase().search(
+        event.target.value.toString().toLowerCase()
+      );
+      const isArtist = ItunesAPI.getAttr(podcast, 'artist').toString().toLowerCase().search(
+        event.target.value.toString().toLowerCase()
+      );
+      return ( isName != -1 || isArtist !== -1 );
     });
     this.setState({podcasts: updatedList});      
   }
