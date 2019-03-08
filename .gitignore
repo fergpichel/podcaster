@@ -1,6 +1,7 @@
 #FOLDERS
 /node_modules/
 /public/dist/
+.idea/
 
 #LOGS
 yarn-debug.log*
