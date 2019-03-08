@@ -22,7 +22,7 @@ yarn install
 yarn watch
 ```
 
-This will serve the project with `webpack-dev-server` on `http://localhost:8080` 
+This will serve the project with `webpack-dev-server` on `http://localhost:8081` 
 
 ## Deployment
 
