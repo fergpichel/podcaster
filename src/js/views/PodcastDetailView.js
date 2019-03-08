@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import fetchJsonp from 'fetch-jsonp';
+import XMLParser from 'react-xml-parser';
 
 import PodcastWidget from '../components/PodcastWidget';
 import EpisodeList from '../components/EpisodeList';
@@ -38,6 +40,10 @@ class PodcastDetailView extends React.Component {
     return currentPodcast && Utils.isUpdated(currentPodcast.lastModified, 1) ? currentPodcast : null;
   }
 
+  printResponse(response) {
+    console.log(response)
+  }
+
   componentDidMount() {
     let storedPodcast = this.readFromDisk();
     if (storedPodcast) {
@@ -46,31 +52,55 @@ class PodcastDetailView extends React.Component {
       return;
     }
     Utils.showSpinner();
-    axios.get(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
+    fetchJsonp(ItunesAPI.getDetailUrl(this.props.match.params.podcastId))
       .then(response => {
         console.log(`${response.status}:${response.statusText}`);
-        return response;
+        return response.json();
       })
-      .then(results => {
-        this.podcastId = results.data.results[0].collectionId;
-        this.trackCount = results.data.results[0].trackCount;
-        let url = ItunesAPI.getEpisodesUrl(results.data.results[0].feedUrl, results.data.results[0].trackCount);
-        axios.get(url)
-          .then(response => {
-            console.log(`${response.status}:${response.statusText}`);
-            return response;
+      .then(({results}) => {
+        this.podcastId = results[0].collectionId;
+        this.trackCount = results[0].trackCount;
+        let url = ItunesAPI.getEpisodesUrl(results[0].feedUrl, results[0].trackCount);
+        axios.get(results[0].feedUrl)
+          .then((response) => {
+            const dataJson = new XMLParser().parseFromString(response.data)
+            const episodeList = dataJson.children[0].getElementsByTagName('item')
+            console.log(episodeList)
+            return dataJson.children.map(item => {
+              console.log(item.children)
+              return {
+                title: item.children.filter(item => item.name === 'title')[0].value,
+                author: item.children.filter(item => item.name === 'itunes:author')[0].value,
+                description: item.children.filter(item => item.name === 'description')[0].value,
+                image: item.children.filter(item => item.name === 'itunes:image')[0].attributes.href,
+                items: episodeList.map(episode => {
+                  return {
+                      title: episode.children.filter(item => item.name === 'title')[0].value,
+                      pubDate: episode.children.filter(item => item.name === 'pubDate')[0].value,
+                      guid: episode.children.filter(item => item.name === 'guid')[0].value,
+                      enclosure: {
+                        duration: episode.children.filter(item => item.name === 'enclosure')[0].attributes.length,
+                        link: episode.children.filter(item => item.name === 'enclosure')[0].attributes.url
+                      }
+                  }
+                }),
+              }
+            })
           })
-          .then(episodes => {
+          .then(response => {
+            const episodes = response[0]
+            console.log(episodes)
             let podcast = {
               id: this.podcastId,
-              title : episodes.data.feed.title,
-              author : episodes.data.feed.author,
-              description : episodes.data.feed.description,
-              image : episodes.data.feed.image,
+              title : episodes.title,
+              author : episodes.author,
+              description : episodes.description,
+              image : episodes.image,
               count: this.trackCount,
-              episodes: episodes.data.items,
+              episodes: episodes.items,
               lastModified: Utils.newDate()
             }
+            console.log(podcast)
             this.setState(podcast);
             this.saveOnDisk(podcast);
           })
