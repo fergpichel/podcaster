@@ -16,7 +16,7 @@ const ItunesApi = {
   }
  },
  rss2json: {
-     url: 'https://api.rss2json.com/v1/api.json?rss_url='
+     url: 'https://feed2json.org/convert?url='
  },
  getEpisodesUrl: function (feed, count) {
     return  `${this.rss2json.url}${feed}&count=${count}`
