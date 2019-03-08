@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import Podcast from '../components/podcast';
+import Podcast from '../components/Podcast';
 import ItunesAPI from '../api'
 import Utils from '../utils'
 import { list } from 'postcss';

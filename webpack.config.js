@@ -17,7 +17,7 @@ var config = {
   },
   devtool: isProdEnvironment() ? false : 'source-map',
   devServer: {
-    port: 8080, // development port server
+    port: 8081, // development port server
   },
   module: {
     loaders: [
